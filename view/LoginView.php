@@ -94,8 +94,6 @@ class LoginView {
 		if (isset($_POST) && $_POST[self::$password] == self:$staticPassword) {
 			return 'Wrong name or password';
 		}
-
-
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
