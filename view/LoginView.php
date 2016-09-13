@@ -10,7 +10,10 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	private static $staticName = 'Admin';
+	private static $staticPassword = 'Password';
 
+	//I am root
 
 	/**
 	 * Create HTTP response
@@ -20,17 +23,17 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
-
 		$message = '';
 
 		if ($_POST) {
 			$message = $this->loginCheck();
 		}
 
-		// var_dump(self::$messageId);
-
 		$response = $this->generateLoginFormHTML($message);
+
+
 		//$response .= $this->generateLogoutButtonHTML($message);
+
 		return $response;
 	}
 
@@ -83,6 +86,16 @@ class LoginView {
 		if (isset($_POST) && empty($_POST[self::$password])) {
 			return 'Password is missing';
 		}
+
+		if (isset($_POST) && $_POST[self::$name] == self:$staticName) {
+			return 'Wrong name or password';
+		}
+
+		if (isset($_POST) && $_POST[self::$password] == self:$staticPassword) {
+			return 'Wrong name or password';
+		}
+
+
 	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
