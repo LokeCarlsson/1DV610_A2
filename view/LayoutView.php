@@ -8,7 +8,7 @@ class LayoutView {
       <html>
         <head>
           <meta charset="utf-8">
-          <title>1DV610</title>
+          <title>Login Example</title>
         </head>
         <body>
           <h1>Assignment 2</h1>
