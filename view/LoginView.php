@@ -13,7 +13,17 @@ class LoginView {
 	private static $staticName = 'Admin';
 	private static $staticPassword = 'Password';
 
+	private $user;
+	private $pass;
+
+	private $loginStatus = false;
+
 	//I am root
+
+	public function status() {
+		return $this->loginStatus;
+	}
+
 
 	/**
 	 * Create HTTP response
@@ -24,16 +34,20 @@ class LoginView {
 	 */
 	public function response() {
 		$message = '';
+			if (isset($_POST[self::$login])) {
+				$message = $this->loginCheck();
+				$user = $_POST[self::$name];
+				$pass = $_POST[self::$password];
 
-		if ($_POST) {
-			$message = $this->loginCheck();
-		}
-
-		$response = $this->generateLoginFormHTML($message);
-
-
-		//$response .= $this->generateLogoutButtonHTML($message);
-
+				if ($user == self::$staticName && $pass == self::$staticPassword) {
+					$this->loginStatus = true;
+					$_SESSION["UserName"] = $user;
+					$message = "Welcome";
+				}
+				$response = $this->generateLogoutButtonHTML($message);
+			} else {
+				$response = $this->generateLoginFormHTML($message);
+			}
 		return $response;
 	}
 
@@ -87,11 +101,11 @@ class LoginView {
 			return 'Password is missing';
 		}
 
-		if (isset($_POST) && $_POST[self::$name] == self:$staticName) {
+		if (isset($_POST) && $_POST[self::$name] == self::$staticName) {
 			return 'Wrong name or password';
 		}
 
-		if (isset($_POST) && $_POST[self::$password] == self:$staticPassword) {
+		if (isset($_POST) && $_POST[self::$password] == self::$staticPassword) {
 			return 'Wrong name or password';
 		}
 	}
