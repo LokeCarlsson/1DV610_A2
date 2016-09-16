@@ -1,5 +1,7 @@
 <?php
 
+require_once('controller/Login.php');
+
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
@@ -10,20 +12,11 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	private static $staticName = 'Admin';
-	private static $staticPassword = 'Password';
+	private $loginController;
 
-	private $user;
-	private $pass;
-
-	private $loginStatus = false;
-
-	//I am root
-
-	public function status() {
-		return $this->loginStatus;
+	public function __construct(Login $login) {
+		$this->loginController = $login;
 	}
-
 
 	/**
 	 * Create HTTP response
@@ -33,23 +26,38 @@ class LoginView {
 	 * @return  void BUT writes to standard output and cookies!
 	 */
 	public function response() {
-		$message = '';
-			if (isset($_POST[self::$login])) {
-				$message = $this->loginCheck();
-				$user = $_POST[self::$name];
-				$pass = $_POST[self::$password];
+		$message = "";
+		$loginSuccess = false;
 
-				if ($user == self::$staticName && $pass == self::$staticPassword) {
-					$this->loginStatus = true;
-					$_SESSION["UserName"] = $user;
-					$message = "Welcome";
-				}
-				$response = $this->generateLogoutButtonHTML($message);
+		if ($this->logout()) {
+			$message = "Bye bye!";
+		}
+
+		if (isset($_POST[self::$login])) {
+			if($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password])) {
+				$message = "Welcome";
 			} else {
-				$response = $this->generateLoginFormHTML($message);
+				$message = $this->loginController->loginCheck($_POST[self::$name], $_POST[self::$password]);
 			}
-		return $response;
+		}
+
+		if (isset($_SESSION['isLoggedIn'])) {
+			return $this->generateLogoutButtonHTML($message);
+		} else {
+			return $this->generateLoginFormHTML($message);
+		}
 	}
+
+
+	private function logout() {
+		if (isset($_POST[self::$logout]) && isset($_SESSION['isLoggedIn'])) {
+			unset($_SESSION['isLoggedIn']);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 
 	/**
 	* Generate HTML code on the output buffer for the logout button
@@ -92,23 +100,7 @@ class LoginView {
 		';
 	}
 
-	private function loginCheck() {
-		if (isset($_POST) && empty($_POST[self::$name])) {
-			return 'Username is missing';
-		}
 
-		if (isset($_POST) && empty($_POST[self::$password])) {
-			return 'Password is missing';
-		}
-
-		if (isset($_POST) && $_POST[self::$name] == self::$staticName) {
-			return 'Wrong name or password';
-		}
-
-		if (isset($_POST) && $_POST[self::$password] == self::$staticPassword) {
-			return 'Wrong name or password';
-		}
-	}
 
 	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
 	private function getRequestUserName() {
