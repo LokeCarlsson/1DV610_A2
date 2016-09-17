@@ -1,4 +1,6 @@
 <?php
+//Start the session
+session_start();
 
 //INCLUDE THE FILES NEEDED...
 require_once('view/LoginView.php');
@@ -10,15 +12,16 @@ require_once('controller/Login.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-//Start the session
-session_start();
-
 //CREATE OBJECTS OF THE VIEWS
 $login = new Login();
+$v = new LoginView($login);
 $lv = new LayoutView();
 $dtv = new DateTimeView();
-$v = new LoginView($login);
 
+//Calls the methods
+$response = $v->response();
 $session = $login->session();
+$loginStatus = $login->status();
 
-$lv->render(isset($_SESSION['isLoggedIn']), $v, $dtv);
+//Render the HTML
+$lv->render($loginStatus, $v, $dtv, $response);

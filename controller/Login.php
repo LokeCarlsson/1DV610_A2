@@ -2,7 +2,6 @@
 
 class Login {
 
-    private static $loginStatus = false;
     private static $staticName = 'Admin';
 	private static $staticPassword = 'Password';
     private static $sessionID = '';
@@ -36,7 +35,7 @@ class Login {
     }
 
     public function status() {
-        return self::$loginStatus;
+        return isset($_SESSION['isLoggedIn']);
     }
 
     public function session() {
