@@ -28,6 +28,7 @@ class Login {
         if ($username == self::$staticName && $password == self::$staticPassword) {
             self::$sessionID = $username;
             $_SESSION['isLoggedIn'] = true;
+            setcookie("user", $username);
             return true;
         } else {
             return false;

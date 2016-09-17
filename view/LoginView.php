@@ -12,6 +12,9 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	private static $triedName = '';
+
+
 	private $loginController;
 
 	public function __construct(Login $login) {
@@ -34,6 +37,7 @@ class LoginView {
 		}
 
 		if (isset($_POST[self::$login])) {
+			self::$triedName = $_POST[self::$name];
 			if($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password])) {
 				$message = "Welcome";
 			} else {
@@ -52,6 +56,7 @@ class LoginView {
 	private function logout() {
 		if (isset($_POST[self::$logout]) && isset($_SESSION['isLoggedIn'])) {
 			unset($_SESSION['isLoggedIn']);
+			setcookie("user", self::$name, time() - 3600);
 			return true;
 		} else {
 			return false;
@@ -85,7 +90,7 @@ class LoginView {
 					<p id="' . self::$messageId . '">' . $message . '</p>
 
 					<label for="' . self::$name . '">Username :</label>
-					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="" />
+					<input type="text" id="' . self::$name . '" name="' . self::$name . '" value="' . self::$triedName . '" />
 
 					<label for="' . self::$password . '">Password :</label>
 					<input type="password" id="' . self::$password . '" name="' . self::$password . '" />
