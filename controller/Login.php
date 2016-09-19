@@ -24,14 +24,26 @@ class Login {
         }
     }
 
-    public function tryLogin($username, $password) {
+    public function tryLogin($username, $password, $keep) {
         if ($username == self::$staticName && $password == self::$staticPassword) {
             self::$sessionID = $username;
-            $_SESSION['isLoggedIn'] = true;
-            setcookie("user", $username);
+            if ($keep) {
+                echo "User cookie set";
+                setcookie("user", $username, time() + 2592000);
+    		}
             return true;
         } else {
             return false;
+        }
+    }
+
+
+    public function useCookies() {
+        if (isset($_COOKIE['user'])) {
+            $_SESSION['isLoggedIn'] = true;
+            if (isset($_COOKIE['user']) && !isset($_COOKIE['PHPSESSID'])) {
+                return "Welcome back with cookie";
+            }
         }
     }
 

@@ -12,6 +12,11 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	private static $regMessageId = 'RegisterView::Message';
+	private static $regName = 'RegisterView::UserName';
+	private static $regPassword = 'RegisterView::Password';
+	private static $regPasswordRepeat = 'RegisterView::PasswordRepeat';
+
 	private static $triedName = '';
 
 
@@ -32,34 +37,48 @@ class LoginView {
 		$message = "";
 		$loginSuccess = false;
 
-		if ($this->logout()) {
-			$message = "Bye bye!";
-		}
+		$message = $this->loginController->useCookies();
+
 
 		if (isset($_POST[self::$login])) {
 			self::$triedName = $_POST[self::$name];
-			if($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password])) {
-				$message = "Welcome";
-			} else {
+			if($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password], isset($_POST[self::$keep]))) {
+				if (!isset($_SESSION['isLoggedIn'])) {
+					$message = "Welcome";
+				} else {
+					$message = "";
+				}
+				$_SESSION['isLoggedIn'] = true;
+	            $_SESSION['user'] = $_POST[self::$name];
+			}
+			 else {
 				$message = $this->loginController->loginCheck($_POST[self::$name], $_POST[self::$password]);
 			}
+		}
+
+
+		if (isset($_POST[self::$logout])) {
+			$message = $this->logout();
 		}
 
 		if (isset($_SESSION['isLoggedIn'])) {
 			return $this->generateLogoutButtonHTML($message);
 		} else {
-			return $this->generateLoginFormHTML($message);
+			if (isset($_GET['register'])) {
+				return $this->generateRegisterFormHTML($message);
+			} else {
+				return $this->generateLoginFormHTML($message);
+			}
 		}
 	}
 
-
 	private function logout() {
-		if (isset($_POST[self::$logout]) && isset($_SESSION['isLoggedIn'])) {
+		if (isset($_SESSION['isLoggedIn'])) {
 			unset($_SESSION['isLoggedIn']);
 			setcookie("user", self::$name, time() - 3600);
-			return true;
+			return "Bye bye!";
 		} else {
-			return false;
+			return "";
 		}
 	}
 
@@ -77,14 +96,21 @@ class LoginView {
 		';
 	}
 
+	public function generateLink() {
+		if (isset($_GET['register'])) {
+			return '<a href="?">Back to login</a>';
+		} else {
+			return '<a href="?register">Register a new user</a>';
+		}
+	}
+
 	/**
 	* Generate HTML code on the output buffer for the logout button
 	* @param $message, String output message
 	* @return  void, BUT writes to standard output!
 	*/
 	private function generateLoginFormHTML($message) {
-		return '
-			<form method="post" >
+		return ' <form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
 					<p id="' . self::$messageId . '">' . $message . '</p>
@@ -102,6 +128,27 @@ class LoginView {
 				</fieldset>
 			</form>
 		';
+	}
+
+
+	private function generateRegisterFormHTML($message) {
+	return '<h2>Register new user</h2>
+			<form action="?register" method="post" enctype="multipart/form-data">
+				<fieldset>
+				<legend>Register a new user - Write username and password</legend>
+					<p id="' . self::$regMessageId . '">' . $message . '</p>
+					<label for="' . self::$regName . '" >Username :</label>
+					<input type="text" size="20" name="' . self::$regName . '" id="' . self::$regName . '" />
+					<br/>
+					<label for="' . self::$regPassword . '" >Password  :</label>
+					<input type="password" size="20" name="' . self::$regPassword . '" id="' . self::$regPassword . '" />
+					<br/>
+					<label for="' . self::$regPasswordRepeat . '" >Repeat password  :</label>
+					<input type="password" size="20" name="' . self::$regPasswordRepeat . '" id="' . self::$regPasswordRepeat . '" />
+					<br/>
+					<input id="submit" type="submit" name="DoRegistration"  value="Register" />
+				</fieldset>
+			</form>';
 	}
 
 

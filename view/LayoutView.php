@@ -12,19 +12,12 @@ class LayoutView {
         </head>
         <body>
           <h1>Assignment 2</h1>
-          ' . $this->renderIsLoggedIn($isLoggedIn) . '
+          ' . $v->generateLink() . $this->renderIsLoggedIn($isLoggedIn) . ' <div class="container">
 
-          <div class="container">
-              ' . $response . '
-
-              ' . $dtv->show() . '
-          </div>
+              ' . $response . $dtv->show() . ' </div>
          </body>
       </html>
     ';
-
-
-
   }
 
   private function renderIsLoggedIn($isLoggedIn) {
