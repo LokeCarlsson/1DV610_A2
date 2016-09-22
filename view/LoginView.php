@@ -37,8 +37,7 @@ class LoginView {
 		$message = "";
 		$loginSuccess = false;
 
-		$message = $this->loginController->useCookies();
-
+		$message = $this->loginController->checkCookies();
 
 		if (isset($_POST[self::$login])) {
 			self::$triedName = $_POST[self::$name];
@@ -75,7 +74,8 @@ class LoginView {
 	private function logout() {
 		if (isset($_SESSION['isLoggedIn'])) {
 			unset($_SESSION['isLoggedIn']);
-			setcookie("user", self::$name, time() - 3600);
+			setcookie("user", false, time() - 1);
+			setcookie("password", false, time() - 1);
 			return "Bye bye!";
 		} else {
 			return "";
