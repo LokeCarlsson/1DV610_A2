@@ -24,7 +24,7 @@ class Login {
             return 'Wrong name or password';
         }
     }
-
+    
     public function tryLogin($username, $password, $keep) {
         if ($username == self::$staticName && $password == self::$staticPassword) {
             self::$sessionID = $username;
