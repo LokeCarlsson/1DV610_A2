@@ -23,5 +23,22 @@ $response = $v->response();
 $loginStatus = $login->status();
 
 
+
+// if (!isset($_SESSION['last_agent'])) {
+//
+//     $_SESSION['last_agent'] = $_SERVER['HTTP_USER_AGENT'];
+//
+// }
+//
+// if ($_SESSION['last_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
+//
+//     unset($_SESSION['isLoggedIn']);
+//
+//     setcookie("PHPSESSID", $_COOKIE['PHPSESSID'], time() - 3600);
+//
+// }
+
+
+
 //Render the HTML
 $lv->render($loginStatus, $v, $dtv, $response);
