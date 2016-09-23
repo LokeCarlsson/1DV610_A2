@@ -25,8 +25,12 @@ class Login {
         }
     }
 
-    public function registerCheck($username, $password) {
+    public function registerCheck($username, $password, $passwordRepeat) {
         if (isset($_POST)) {
+            if (preg_match("/[^-a-z0-9_]/i", $username)) {
+                return 'Username contains invalid characters.';
+            }
+
             if ($username == self::$staticName) {
                 return 'User exists, pick another username.';
             }
@@ -42,6 +46,10 @@ class Login {
 
             if (strlen($password) <= 0) {
                 return 'Password has too few characters, at least 6 characters.';
+            }
+
+            if ($password !== $passwordRepeat) {
+                return 'Passwords do not match.';
             }
         }
     }
