@@ -97,10 +97,12 @@ class LoginView {
 	}
 
 	public function generateLink() {
-		if (isset($_GET['register'])) {
+		if (isset($_GET['register']) && !isset($_SESSION['isLoggedIn'])) {
 			return '<a href="?">Back to login</a>';
-		} else {
+		} else if (!isset($_SESSION['isLoggedIn'])) {
 			return '<a href="?register">Register a new user</a>';
+		} else {
+			return '';
 		}
 	}
 
