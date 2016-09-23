@@ -44,7 +44,7 @@ class Login {
                 return 'Username has too few characters, at least 3 characters.';
             }
 
-            if (strlen($password) <= 0) {
+            if (strlen($password) <= 6) {
                 return 'Password has too few characters, at least 6 characters.';
             }
 
