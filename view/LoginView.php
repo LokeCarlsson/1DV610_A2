@@ -12,12 +12,14 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
+	private static $register = 'RegisterView::Register';
 	private static $regMessageId = 'RegisterView::Message';
 	private static $regName = 'RegisterView::UserName';
 	private static $regPassword = 'RegisterView::Password';
 	private static $regPasswordRepeat = 'RegisterView::PasswordRepeat';
 
 	private static $triedName = '';
+	private static $regTriedName = '';
 
 
 	private $loginController;
@@ -35,13 +37,20 @@ class LoginView {
 	 */
 	public function response() {
 		$message = "";
+		$regMessage = "";
 		$loginSuccess = false;
 
 		$message = $this->loginController->checkCookies();
 
+		if (isset($_POST[self::$register])) {
+			self::$regTriedName = $_POST[self::$regName];
+			$regMessage = $this->loginController->registerCheck($_POST[self::$regName], $_POST[self::$regPassword]);
+			//return $this->generateRegisterFormHTML($regMessage);
+		}
+
 		if (isset($_POST[self::$login])) {
 			self::$triedName = $_POST[self::$name];
-			if($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password], isset($_POST[self::$keep]))) {
+			if ($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password], isset($_POST[self::$keep]))) {
 				if (!isset($_SESSION['isLoggedIn'])) {
 					$message = "Welcome";
 				} else {
@@ -55,7 +64,6 @@ class LoginView {
 			}
 		}
 
-
 		if (isset($_POST[self::$logout])) {
 			$message = $this->logout();
 		}
@@ -64,7 +72,7 @@ class LoginView {
 			return $this->generateLogoutButtonHTML($message);
 		} else {
 			if (isset($_GET['register'])) {
-				return $this->generateRegisterFormHTML($message);
+				return $this->generateRegisterFormHTML($regMessage);
 			} else {
 				return $this->generateLoginFormHTML($message);
 			}
@@ -140,7 +148,7 @@ class LoginView {
 				<legend>Register a new user - Write username and password</legend>
 					<p id="' . self::$regMessageId . '">' . $message . '</p>
 					<label for="' . self::$regName . '" >Username :</label>
-					<input type="text" size="20" name="' . self::$regName . '" id="' . self::$regName . '" />
+					<input type="text" size="20" name="' . self::$regName . '" id="' . self::$regName . '" value="' . self::$regTriedName . '" />
 					<br/>
 					<label for="' . self::$regPassword . '" >Password  :</label>
 					<input type="password" size="20" name="' . self::$regPassword . '" id="' . self::$regPassword . '" />
@@ -148,7 +156,7 @@ class LoginView {
 					<label for="' . self::$regPasswordRepeat . '" >Repeat password  :</label>
 					<input type="password" size="20" name="' . self::$regPasswordRepeat . '" id="' . self::$regPasswordRepeat . '" />
 					<br/>
-					<input id="submit" type="submit" name="DoRegistration"  value="Register" />
+					<input id="submit" type="submit" name="' . self::$register . '"  value="Register" />
 				</fieldset>
 			</form>';
 	}

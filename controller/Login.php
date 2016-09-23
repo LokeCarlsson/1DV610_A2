@@ -24,7 +24,28 @@ class Login {
             return 'Wrong name or password';
         }
     }
-    
+
+    public function registerCheck($username, $password) {
+        if (isset($_POST)) {
+            if ($username == self::$staticName) {
+                return 'User exists, pick another username.';
+            }
+
+            if (strlen($username) <= 0 && strlen($password) <= 0) {
+                return 'Username has too few characters, at least 3 characters.'
+                 . '<br>' . 'Password has too few characters, at least 6 characters.';
+            }
+
+            if (strlen($username) < 3) {
+                return 'Username has too few characters, at least 3 characters.';
+            }
+
+            if (strlen($password) <= 0) {
+                return 'Password has too few characters, at least 6 characters.';
+            }
+        }
+    }
+
     public function tryLogin($username, $password, $keep) {
         if ($username == self::$staticName && $password == self::$staticPassword) {
             self::$sessionID = $username;
