@@ -12,7 +12,7 @@ class Routing {
 
     if (isset($_POST[self::$logout])) {
         //Call the logout method
-        
+        //test
         //Route to GET
     }
 
