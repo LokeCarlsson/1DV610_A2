@@ -14,7 +14,7 @@ class Routing {
     if (isset($_POST[self::$logout])) {
         //Call the logout method
         setUserLoggedOut();
-
+    
         //Route to GET
     }
 
@@ -28,6 +28,7 @@ class Routing {
 
     if (isset($_POST[self::$register])) {
         //Call the register method
+
 
         //Route to GET
     }

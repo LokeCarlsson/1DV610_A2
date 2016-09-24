@@ -43,12 +43,12 @@ class LoginView {
 		$message = $this->loginController->checkCookies();
 
 		if (isset($_POST[self::$register])) {
-			self::$regTriedName = $_POST[self::$regName];
+			self::$regTriedName = strip_tags($_POST[self::$regName]);
 			$regMessage = $this->loginController->registerCheck($_POST[self::$regName], $_POST[self::$regPassword], $_POST[self::$regPasswordRepeat]);
 		}
 
 		if (isset($_POST[self::$login])) {
-			self::$triedName = $_POST[self::$name];
+			self::$triedName = strip_tags($_POST[self::$name]);
 			if ($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password], isset($_POST[self::$keep]))) {
 				if (!isset($_SESSION['isLoggedIn'])) {
 					$message = "Welcome";
@@ -56,7 +56,7 @@ class LoginView {
 					$message = "";
 				}
 				$_SESSION['isLoggedIn'] = true;
-	            $_SESSION['user'] = $_POST[self::$name];
+	      		$_SESSION['user'] = $_POST[self::$name];
 
 			}
 			 else {
