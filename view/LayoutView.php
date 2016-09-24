@@ -11,7 +11,7 @@ class LayoutView {
           <title>Login Example</title>
         </head>
         <body>
-          <h1>Assignment 2</h1>
+          <h1>Assignment 2 - Refactored</h1>
           ' . $v->generateLink() . $this->renderIsLoggedIn($isLoggedIn) . ' <div class="container">
 
               ' . $response . $dtv->show() . ' </div>

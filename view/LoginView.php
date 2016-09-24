@@ -45,7 +45,6 @@ class LoginView {
 		if (isset($_POST[self::$register])) {
 			self::$regTriedName = $_POST[self::$regName];
 			$regMessage = $this->loginController->registerCheck($_POST[self::$regName], $_POST[self::$regPassword], $_POST[self::$regPasswordRepeat]);
-			//return $this->generateRegisterFormHTML($regMessage);
 		}
 
 		if (isset($_POST[self::$login])) {
@@ -58,6 +57,7 @@ class LoginView {
 				}
 				$_SESSION['isLoggedIn'] = true;
 	            $_SESSION['user'] = $_POST[self::$name];
+
 			}
 			 else {
 				$message = $this->loginController->loginCheck($_POST[self::$name], $_POST[self::$password]);

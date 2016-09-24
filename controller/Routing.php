@@ -9,18 +9,26 @@ require_once('../model/User.php');
 class Routing {
     private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
+    private static $register = 'RegisterView::Register';
 
     if (isset($_POST[self::$logout])) {
         //Call the logout method
-        //test
+        setUserLoggedOut();
+
         //Route to GET
     }
 
     if (isset($_POST[self::$login])) {
         //Call the login method
-        if (setUserLoggedIn()) {
+        setUserLoggedIn();
 
-        }
+        //Route to GET
+        header('Location: ' . $_SERVER['PHP_SELF']);
+    }
+
+    if (isset($_POST[self::$register])) {
+        //Call the register method
+
         //Route to GET
     }
 

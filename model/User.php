@@ -11,12 +11,18 @@ class User {
     }
 
     public function setUserLoggedIn() {
-        
+
     }
 
     private function setCookies() {
         setcookie("user", $username, time() + 2592000);
         setcookie("cookiePassword", self::$cookiePassword, time() + 2592000);
+    }
+
+    public function setUserLoggedOut() {
+        unset($_SESSION['isLoggedIn']);
+        setcookie("user", false, time() - 1);
+        setcookie("password", false, time() - 1);
     }
 
 
