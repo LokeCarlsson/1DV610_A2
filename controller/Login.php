@@ -23,6 +23,7 @@ class Login {
         if (isset($_POST) && $password == self::$staticPassword) {
             return 'Wrong name or password';
         }
+        return "";
     }
 
     public function registerCheck($username, $password, $passwordRepeat) {
@@ -52,6 +53,7 @@ class Login {
                 return 'Passwords do not match.';
             }
         }
+        return "";
     }
 
     public function tryLogin($username, $password, $keep) {
@@ -76,6 +78,7 @@ class Login {
                 }
             }
         }
+        return "";
     }
 
     public function status() {

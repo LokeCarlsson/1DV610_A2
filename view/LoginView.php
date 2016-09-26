@@ -33,12 +33,10 @@ class LoginView {
 	 *
 	 * Should be called after a login attempt has been determined
 	 *
-	 * @return  void BUT writes to standard output and cookies!
+	 * @return  string
 	 */
 	public function response() {
-		$message = "";
 		$regMessage = "";
-		$loginSuccess = false;
 
 		$message = $this->loginController->checkCookies();
 
@@ -93,7 +91,7 @@ class LoginView {
 	/**
 	* Generate HTML code on the output buffer for the logout button
 	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
+	* @return  string
 	*/
 	private function generateLogoutButtonHTML($message) {
 		return '
@@ -114,11 +112,6 @@ class LoginView {
 		}
 	}
 
-	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  void, BUT writes to standard output!
-	*/
 	private function generateLoginFormHTML($message) {
 		return ' <form method="post" >
 				<fieldset>
@@ -159,13 +152,6 @@ class LoginView {
 					<input id="submit" type="submit" name="' . self::$register . '"  value="Register" />
 				</fieldset>
 			</form>';
-	}
-
-
-
-	//CREATE GET-FUNCTIONS TO FETCH REQUEST VARIABLES
-	private function getRequestUserName() {
-
 	}
 
 }
