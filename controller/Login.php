@@ -87,6 +87,8 @@ class Login {
                 if (!isset($_COOKIE['PHPSESSID'])) {
                     return "Welcome back with cookie";
                 }
+            } else {
+                return "Wrong information in cookies";
             }
         }
     }
