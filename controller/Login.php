@@ -2,8 +2,6 @@
 
 class Login {
 
-    //private static $staticName = 'Admin';
-	//private static $staticPassword = 'Password';
     private static $sessionID = '';
     private static $cookiePassword = 'GLmEpTMp¤8KNfodgSSIa0!r9KtPd97)61S&776%Bje22B';
 
@@ -74,7 +72,7 @@ class Login {
             self::$sessionID = $username;
             if ($keep) {
                 setcookie("user", $username, time() + 2592000);
-                setcookie("cookiePassword", self::$cookiePassword, time() + 2592000);
+                setcookie("LoginView::CookiePassword", self::$cookiePassword, time() + 2592000);
     		}
             return true;
         } else {
@@ -83,8 +81,8 @@ class Login {
     }
 
     public function checkCookies() {
-        if (isset($_COOKIE['user']) && isset($_COOKIE['cookiePassword'])) {
-            if ($_COOKIE['cookiePassword'] == self::$cookiePassword) {
+        if (isset($_COOKIE['user']) && isset($_COOKIE['LoginView::CookiePassword'])) {
+            if ($_COOKIE['LoginView::CookiePassword'] == self::$cookiePassword) {
                 $_SESSION['isLoggedIn'] = true;
                 if (!isset($_COOKIE['PHPSESSID'])) {
                     return "Welcome back with cookie";
