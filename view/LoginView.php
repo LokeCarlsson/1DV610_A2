@@ -1,7 +1,5 @@
 <?php
 
-require_once('controller/Login.php');
-
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
@@ -21,11 +19,11 @@ class LoginView {
 	private static $triedName = '';
 	private static $regTriedName = '';
 
-
 	private $loginController;
 
-	public function __construct(Login $login) {
+	public function __construct(Login $login, Register $reg) {
 		$this->loginController = $login;
+		$this->regController = $reg;
 	}
 
 	/**
@@ -42,9 +40,20 @@ class LoginView {
 
 		$message = $this->loginController->checkCookies();
 
+		if (isset($_SESSION['registeredName'])) {
+			self::$triedName = $_SESSION['registeredName'];
+			$message = "Registered new user.";
+			unset($_SESSION['registeredName']);
+		}
+
 		if (isset($_POST[self::$register])) {
 			self::$regTriedName = strip_tags($_POST[self::$regName]);
 			$regMessage = $this->loginController->registerCheck($_POST[self::$regName], $_POST[self::$regPassword], $_POST[self::$regPasswordRepeat]);
+			if ($regMessage === "") {
+				$this->regController->addNewUser($_POST[self::$regName], $_POST[self::$regPassword], $_POST[self::$regPasswordRepeat]);
+				$_SESSION['registeredName'] = self::$regTriedName;
+				header("Location: /index.php");
+			}
 		}
 
 		if (isset($_POST[self::$login])) {

@@ -51,6 +51,7 @@ class Login {
             if ($password !== $passwordRepeat) {
                 return 'Passwords do not match.';
             }
+            return "";
         }
     }
 
