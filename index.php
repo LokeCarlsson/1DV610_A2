@@ -16,7 +16,7 @@ ini_set('display_errors', 'On');
 
 //CREATE OBJECTS OF THE VIEWS
 $db = new Database();
-$login = new Login();
+$login = new Login($db);
 $reg = new Register($db);
 $v = new LoginView($login, $reg);
 $lv = new LayoutView();
@@ -41,7 +41,6 @@ $loginStatus = $login->status();
 //     setcookie("PHPSESSID", $_COOKIE['PHPSESSID'], time() - 3600);
 //
 // }
-
 
 
 //Render the HTML

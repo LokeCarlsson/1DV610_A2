@@ -40,6 +40,10 @@ class LoginView {
 
 		$message = $this->loginController->checkCookies();
 
+		//$this->regController->checkUserCredentials($_POST[self::$name], $_POST[self::$password]);
+
+		
+
 		if (isset($_SESSION['registeredName'])) {
 			self::$triedName = $_SESSION['registeredName'];
 			$message = "Registered new user.";

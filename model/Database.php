@@ -9,20 +9,12 @@ class Database {
     private static $password = "festis";
     private static $dbName = "loke";
 
-
-
-    // public function connectDB() {
-    //
-    // }
-
     public function registerNewUser($username, $password) {
 
         $myDB = new mysqli(self::$servername, self::$username, self::$password, self::$dbName);
         if ($myDB->connect_error) {
             die("Connection failed: " . $myDB->connect_error);
         }
-
-
 
         $myDB->select_db(self::$dbName);
 
@@ -35,8 +27,19 @@ class Database {
         $myDB->close();
     }
 
-    public function fetchUser($username) {
+    public function fetchUser($user) {
+        $myDB = new mysqli(self::$servername, self::$username, self::$password, self::$dbName);
+        if ($myDB->connect_error) {
+            die("Connection failed: " . $myDB->connect_error);
+        }
 
+        $myDB->select_db(self::$dbName);
+
+        $sql = 'SELECT username, password FROM Users WHERE username="' . $user . '"';
+
+        $result = $myDB->query($sql);
+
+        return $result;
     }
 
 

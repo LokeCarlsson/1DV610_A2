@@ -2,36 +2,49 @@
 
 class Login {
 
-    private static $staticName = 'Admin';
-	private static $staticPassword = 'Password';
+    //private static $staticName = 'Admin';
+	//private static $staticPassword = 'Password';
     private static $sessionID = '';
     private static $cookiePassword = 'GLmEpTMp¤8KNfodgSSIa0!r9KtPd97)61S&776%Bje22B';
 
+    public function __construct(Database $Database) {
+		$this->db = $Database;
+	}
+
     public function loginCheck($username, $password) {
-        if (isset($_POST) && empty($username)) {
-            return 'Username is missing';
-        }
+        $userInDB = $this->db->fetchUser($username)->fetch_assoc();
 
-        if (isset($_POST) && empty($password)) {
-            return 'Password is missing';
-        }
+            if (empty($username) && empty($password)) {
+                return 'Username is missing';
+            }
 
-        if (isset($_POST) && $username == self::$staticName) {
-            return 'Wrong name or password';
-        }
+            if (isset($_POST) && empty($username)) {
+                return 'Username is missing';
+            }
 
-        if (isset($_POST) && $password == self::$staticPassword) {
-            return 'Wrong name or password';
+            if (isset($_POST) && empty($password)) {
+                return 'Password is missing';
+            }
+
+            if ($userInDB) {
+                if (isset($_POST) && $username == $userInDB["username"]) {
+                    return 'Wrong name or password';
+                }
+
+                if (isset($_POST) && $password == $userInDB["password"]) {
+                    return 'Wrong name or password';
+                }
         }
     }
 
     public function registerCheck($username, $password, $passwordRepeat) {
         if (isset($_POST)) {
+            $userInDB = $this->db->fetchUser($username)->fetch_assoc();
             if (preg_match("/[^-a-z0-9_]/i", $username)) {
                 return 'Username contains invalid characters.';
             }
 
-            if ($username == self::$staticName) {
+            if ($userInDB) {
                 return 'User exists, pick another username.';
             }
 
@@ -56,7 +69,8 @@ class Login {
     }
 
     public function tryLogin($username, $password, $keep) {
-        if ($username == self::$staticName && $password == self::$staticPassword) {
+        $userInDB = $this->db->fetchUser($username)->fetch_assoc();
+        if ($username == $userInDB["username"] && $password == $userInDB["password"] && strlen($username) > 2) {
             self::$sessionID = $username;
             if ($keep) {
                 setcookie("user", $username, time() + 2592000);
