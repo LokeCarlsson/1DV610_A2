@@ -3,7 +3,7 @@
 class Login {
 
     private static $sessionID = '';
-    private static $cookiePassword = 'GLmEpTMp¤8KNfodgSSIa0!r9KtPd97)61S&776%Bje22B';
+    private static $cookiePassword = '123erwre43w24w345t34ete456er57';
 
     public function __construct(Database $Database) {
 		$this->db = $Database;
@@ -70,9 +70,14 @@ class Login {
         $userInDB = $this->db->fetchUser($username)->fetch_assoc();
         if ($username == $userInDB["username"] && $password == $userInDB["password"] && strlen($username) > 2) {
             self::$sessionID = $username;
+            if (!isset($_SESSION['last_agent'])) {
+                $_SESSION['last_agent'] = $_SERVER['HTTP_USER_AGENT'];
+            }
             if ($keep) {
                 setcookie("user", $username, time() + 2592000);
+                //setcookie("LoginView::CookiePassword", bin2hex(openssl_random_pseudo_bytes(16)), time() + 2592000);
                 setcookie("LoginView::CookiePassword", self::$cookiePassword, time() + 2592000);
+                $_SESSION["CookiePassword"] = self::$cookiePassword;
     		}
             return true;
         } else {
@@ -81,8 +86,8 @@ class Login {
     }
 
     public function checkCookies() {
-        if (isset($_COOKIE['user']) && isset($_COOKIE['LoginView::CookiePassword'])) {
-            if ($_COOKIE['LoginView::CookiePassword'] == self::$cookiePassword) {
+        if (isset($_COOKIE['LoginView::CookiePassword'])) {
+            if ($_COOKIE['LoginView::CookiePassword'] === self::$cookiePassword) {
                 $_SESSION['isLoggedIn'] = true;
                 if (!isset($_COOKIE['PHPSESSID'])) {
                     return "Welcome back with cookie";

@@ -14,6 +14,9 @@ require_once('model/Database.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
+
+
+
 //CREATE OBJECTS OF THE VIEWS
 $db = new Database();
 $login = new Login($db);
@@ -22,26 +25,17 @@ $v = new LoginView($login, $reg);
 $lv = new LayoutView();
 $dtv = new DateTimeView();
 
+if (isset($_SESSION['last_agent']) && $_SESSION['last_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
+    unset($_SESSION['isLoggedIn']);
+    //session_destroy();
+    //setcookie("user", false, time() - 1);
+    //setcookie("PHPSESSID", false, time() - 1);
+    //setcookie("LoginView::CookiePassword", false, time() - 1);
+}
+
 //Calls the methods
 $response = $v->response();
 $loginStatus = $login->status();
-
-
-
-// if (!isset($_SESSION['last_agent'])) {
-//
-//     $_SESSION['last_agent'] = $_SERVER['HTTP_USER_AGENT'];
-//
-// }
-//
-// if ($_SESSION['last_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
-//
-//     unset($_SESSION['isLoggedIn']);
-//
-//     setcookie("PHPSESSID", $_COOKIE['PHPSESSID'], time() - 3600);
-//
-// }
-
 
 //Render the HTML
 $lv->render($loginStatus, $v, $dtv, $response);
