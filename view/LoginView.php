@@ -43,7 +43,7 @@ class LoginView {
 		$message = $this->loginController->checkCookies();
 
 		if (isset($_POST[self::$register])) {
-			self::$regTriedName = $_POST[self::$regName];
+			self::$regTriedName = strip_tags($_POST[self::$regName]);
 			$regMessage = $this->loginController->registerCheck($_POST[self::$regName], $_POST[self::$regPassword], $_POST[self::$regPasswordRepeat]);
 		}
 
