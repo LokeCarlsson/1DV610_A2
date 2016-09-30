@@ -28,13 +28,6 @@ class LoginView {
 		$this->loginController = $login;
 	}
 
-	/**
-	 * Create HTTP response
-	 *
-	 * Should be called after a login attempt has been determined
-	 *
-	 * @return  string
-	 */
 	public function response() {
 		$regMessage = "";
 
@@ -88,11 +81,6 @@ class LoginView {
 		}
 	}
 
-	/**
-	* Generate HTML code on the output buffer for the logout button
-	* @param $message, String output message
-	* @return  string
-	*/
 	private function generateLogoutButtonHTML($message) {
 		return '
 			<form  method="post" >
