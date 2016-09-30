@@ -1,16 +1,24 @@
 <?php
 
 class Database {
-    private static $staticName = 'Admin';
-	private static $staticPassword = 'Password';
 
-    public function name() {
-        return self::$staticName;
+    public function registerNewUser($username, $password) {
+
+        $sql = "INSERT INTO Users (username, password) VALUES ('" . $username . "', '". $password . "');";
+
+        if (db::getInstance()->query($sql) === FALSE) {
+            throw new Exception($this->getInstance->error);
+        }
+
+        db::getInstance()->close();
     }
 
-    public function password() {
-        return self::$staticPassword;
+    public function fetchUser($user) {
+
+        $sql = 'SELECT username, password FROM Users WHERE username="' . $user . '"';
+
+        $result = db::getInstance()->query($sql);
+
+        return $result;
     }
-
-
 }

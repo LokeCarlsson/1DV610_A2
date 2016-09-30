@@ -7,13 +7,20 @@ require_once('view/LoginView.php');
 require_once('view/DateTimeView.php');
 require_once('view/LayoutView.php');
 require_once('controller/Login.php');
+require_once('controller/Register.php');
+require_once('model/Database.php');
+require_once('model/Connection.php');
 
 //MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 
-//CREATE OBJECTS OF THE VIEWS
-$login = new Login();
+
+//CREATE OBJECTS
+$db = db::getInstance();
+$database = new Database();
+$login = new Login($database);
+$reg = new Register($database);
 $v = new LoginView($login);
 $lv = new LayoutView();
 $dtv = new DateTimeView();
