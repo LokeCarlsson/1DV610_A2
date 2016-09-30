@@ -1,11 +1,7 @@
 <?php
 
-class Db {
-    private static $servername = "oskaremilsson.se";
-    private static $username = "lokeboy";
-    private static $password = "festis";
-    private static $dbName = "loke";
 
+class Db {
     private static $instance = null;
 
     private function __construct() {}
@@ -13,13 +9,14 @@ class Db {
     private function __clone() {}
 
     public static function getInstance() {
+        $config = include('../config.php');
         if (!isset(self::$instance)) {
-            self::$instance = new mysqli(self::$servername, self::$username, self::$password, self::$dbName);
+            self::$instance = new mysqli($config["servername"], $config["username"], $config["password"], $config["dbname"]);
             if (self::$instance->connect_error) {
                 die("Connection failed: " . self::$instance->connect_error);
             }
 
-            self::$instance->select_db(self::$dbName);
+            self::$instance->select_db($config["dbname"]);
         }
         return self::$instance;
     }
