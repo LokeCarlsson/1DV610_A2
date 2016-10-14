@@ -11,11 +11,6 @@ require_once('controller/Register.php');
 require_once('model/Database.php');
 require_once('model/Connection.php');
 
-//MAKE SURE ERRORS ARE SHOWN... MIGHT WANT TO TURN THIS OFF ON A PUBLIC SERVER
-error_reporting(E_ALL);
-ini_set('display_errors', 'On');
-
-
 //CREATE OBJECTS
 $db = db::getInstance();
 $database = new Database();

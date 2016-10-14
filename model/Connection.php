@@ -1,5 +1,6 @@
 <?php
 
+require_once('../config.php');
 
 class Db {
     private static $instance = null;
@@ -9,15 +10,15 @@ class Db {
     private function __clone() {}
 
     public static function getInstance() {
-        $config = include('../config.php');
+
 
         if (!isset(self::$instance)) {
-            self::$instance = new mysqli($config["servername"], $config["username"], $config["password"], $config["dbname"]);
+            self::$instance = new mysqli(config::$SERVERNAME, config::$USERNAME, config::$PASSWORD, config::$DBNAME);
             if (self::$instance->connect_error) {
                 die("Connection failed: " . self::$instance->connect_error);
             }
-            
-            self::$instance->select_db($config["dbname"]);
+
+            self::$instance->select_db(config::$DBNAME);
         }
         return self::$instance;
     }

@@ -81,6 +81,39 @@ class LoginView {
 		}
 	}
 
+
+
+
+	public function userWantToLogin() {
+		if (isset($_POST[self::$login])) {
+            //Call the login method
+            //Route to GET
+            //header('Location: ' . $_SERVER['PHP_SELF']);
+        }
+	}
+
+	public function userWantsToLogout() {
+		if (isset($_POST[self::$logout])) {
+            //Call the logout method
+            //Route to GET
+        }
+	}
+
+	public function userWantsToRegister() {
+		if (isset($_POST[self::$register])) {
+            //Call the register method
+            //Route to GET
+        }
+	}
+
+
+
+
+
+
+
+
+
 	private function generateLogoutButtonHTML($message) {
 		return '
 			<form  method="post" >
