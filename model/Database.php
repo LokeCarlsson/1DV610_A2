@@ -2,6 +2,10 @@
 
 class Database {
 
+    /**
+    **  TODO: Convert queries to parameterized queries for better security.
+    **/
+
     public function registerNewUser($username, $password) {
 
         $sql = "INSERT INTO Users (username, password) VALUES ('" . $username . "', '". $password . "');";
@@ -21,4 +25,10 @@ class Database {
 
         return $result;
     }
+
+    public function checkCredentials($username, $password) : bool {
+         $userInDB = $this->db->fetchUser($username)->fetch_assoc();
+         return $username == $userInDB["username"] && $password == $userInDB["password"];
+    }
+
 }

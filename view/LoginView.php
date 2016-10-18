@@ -12,12 +12,6 @@ class LoginView {
 	private static $keep = 'LoginView::KeepMeLoggedIn';
 	private static $messageId = 'LoginView::Message';
 
-	private static $register = 'RegisterView::Register';
-	private static $regMessageId = 'RegisterView::Message';
-	private static $regName = 'RegisterView::UserName';
-	private static $regPassword = 'RegisterView::Password';
-	private static $regPasswordRepeat = 'RegisterView::PasswordRepeat';
-
 	private static $triedName = '';
 	private static $regTriedName = '';
 
@@ -71,47 +65,23 @@ class LoginView {
 	}
 
 	private function logout() {
-		if (isset($_SESSION['isLoggedIn'])) {
-			unset($_SESSION['isLoggedIn']);
-			setcookie("user", false, time() - 1);
-			setcookie("password", false, time() - 1);
-			return "Bye bye!";
-		} else {
-			return "";
-		}
+		unset($_SESSION['isLoggedIn']);
+		setcookie("user", false, time() - 1);
+		setcookie("password", false, time() - 1);
+		return "Bye bye!";
 	}
 
-
-
-
 	public function userWantToLogin() {
-		if (isset($_POST[self::$login])) {
-            //Call the login method
-            //Route to GET
-            //header('Location: ' . $_SERVER['PHP_SELF']);
-        }
+		return isset($_POST[self::$login]);
 	}
 
 	public function userWantsToLogout() {
-		if (isset($_POST[self::$logout])) {
-            //Call the logout method
-            //Route to GET
-        }
+		return isset($_POST[self::$logout]);
 	}
 
 	public function userWantsToRegister() {
-		if (isset($_POST[self::$register])) {
-            //Call the register method
-            //Route to GET
-        }
+		return isset($_POST[self::$register]);
 	}
-
-
-
-
-
-
-
 
 
 	private function generateLogoutButtonHTML($message) {
@@ -123,17 +93,7 @@ class LoginView {
 		';
 	}
 
-	public function generateLink() {
-		if (isset($_GET['register']) && !isset($_SESSION['isLoggedIn'])) {
-			return '<a href="?">Back to login</a>';
-		} else if (!isset($_SESSION['isLoggedIn'])) {
-			return '<a href="?register">Register a new user</a>';
-		} else {
-			return '';
-		}
-	}
-
-	private function generateLoginFormHTML($message) {
+	private function generateLoginFormHTML() {
 		return ' <form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
@@ -153,26 +113,4 @@ class LoginView {
 			</form>
 		';
 	}
-
-
-	private function generateRegisterFormHTML($message) {
-	return '<h2>Register new user</h2>
-			<form action="?register" method="post" enctype="multipart/form-data">
-				<fieldset>
-				<legend>Register a new user - Write username and password</legend>
-					<p id="' . self::$regMessageId . '">' . $message . '</p>
-					<label for="' . self::$regName . '" >Username :</label>
-					<input type="text" size="20" name="' . self::$regName . '" id="' . self::$regName . '" value="' . self::$regTriedName . '" />
-					<br/>
-					<label for="' . self::$regPassword . '" >Password  :</label>
-					<input type="password" size="20" name="' . self::$regPassword . '" id="' . self::$regPassword . '" />
-					<br/>
-					<label for="' . self::$regPasswordRepeat . '" >Repeat password  :</label>
-					<input type="password" size="20" name="' . self::$regPasswordRepeat . '" id="' . self::$regPasswordRepeat . '" />
-					<br/>
-					<input id="submit" type="submit" name="' . self::$register . '"  value="Register" />
-				</fieldset>
-			</form>';
-	}
-
 }
