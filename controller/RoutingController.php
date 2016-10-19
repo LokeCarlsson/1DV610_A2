@@ -12,7 +12,7 @@ require_once('view/userView.php');
 require_once('controller/LoginController.php');
 require_once('controller/RegisterController.php');
 
-class Routing {
+class RoutingController {
     private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
     private static $register = 'RegisterView::Register';
@@ -51,6 +51,6 @@ class Routing {
         if ($this->registerView->userWantToRegister())
         $this->registerController->register();
 
-        $this->layoutView->renderLoginView();
+        $this->layoutView->renderLoginView($this->userView);
     }
 }

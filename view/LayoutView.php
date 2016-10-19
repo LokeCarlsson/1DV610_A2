@@ -6,29 +6,28 @@ class LayoutView {
     private $loginView;
     private $registerView;
     private $dateTimeView;
-    private $userView;
 
-    public function __construct(LoginView $lV, RegisterView $rV, DateTimeView $dtv, UserView $uV) {
-        $this->isLoggedIn = $uV->isLoggedIn();
+
+    public function __construct(LoginView $lV, RegisterView $rV, DateTimeView $dtv) {
         $this->loginView = $lV;
         $this->registerView = $rV;
         $this->dateTimeView = $dtv;
-        $userView = $uV;
+
     }
 
-    public function renderLoginView() {
+    public function renderLoginView(UserView $userView) {
         echo $this->renderTopHTML() .
         '<a href="?">Back to login</a>' .
-        $this->renderIsLoggedIn() .
+        $this->renderIsLoggedIn($userView) .
         '<div class="container">' .
         $this->loginView->response() .
         $this->renderBottomHTML();
     }
 
-    public function renderRegisterView() {
+    public function renderRegisterView(UserView $userView) {
         echo $this->renderTopHTML() .
         '<a href="?register">Register a new user</a>' .
-        $this->renderIsLoggedIn() .
+        $this->renderIsLoggedIn($userView) .
         '<div class="container">' .
         $this->registerView->response() .
         $this->renderBottomHTML();
@@ -52,8 +51,8 @@ class LayoutView {
         </html>';
     }
 
-    private function renderIsLoggedIn() {
-        if ($this->isLoggedIn) {
+    private function renderIsLoggedIn($userView) {
+        if ($userView->isLoggedIn()) {
             return '<h2>Logged in</h2>';
         }
         else {

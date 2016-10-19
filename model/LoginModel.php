@@ -31,7 +31,4 @@ class LoginModel {
          return ($username == $userInDB[self::$dbUsername] && $password == $userInDB[self::$dbPassword]);
     }
 
-
-
-
 }
