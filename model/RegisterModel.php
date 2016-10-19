@@ -2,7 +2,7 @@
 
 class RegisterModel {
 
-    public function errorMessage($username, $password, $passwordRepeat) {
+    public function validateCredentials($username, $password, $passwordRepeat) {
         if (preg_match("/[^-a-z0-9_]/i", $username)) {
             return 'Username contains invalid characters.';
         }

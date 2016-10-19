@@ -1,23 +1,37 @@
 <?php
 
+
+
 class LoginModel {
 
-    public function errorMessage($username, $password) {
-        if (isset($_POST) && empty($username)) {
-            return 'Username is missing';
-        }
+    private static $dbUsername = 'username';
+    private static $dbPassword = 'password';
 
-        if (isset($_POST) && empty($password)) {
-            return 'Password is missing';
-        }
+    private $database;
 
-        if (isset($_POST) && $username == self::$staticName) {
-            return 'Wrong name or password';
-        }
+    public function __construct($db) {
+         $this->database = $db;
+     }
 
-        if (isset($_POST) && $password == self::$staticPassword) {
-            return 'Wrong name or password';
-        }
+    public function validateCredentials($username, $password) {
+         $userInDB = $this->database->fetchUser($username)->fetch_assoc();
+
+         if (strlen($username) < 3) {
+             throw new usernameHasTooFewCharsException();
+         }
+
+         if (strlen($password) < 6) {
+             throw new passwordHasTooFewCharsException();
+         }
+
+         if ($username != $userInDB[self::$dbUsername] || $password != $userInDB[self::$dbPassword]) {
+             throw new wrongUsernameOrPasswordException();
+         }
+
+         return ($username == $userInDB[self::$dbUsername] && $password == $userInDB[self::$dbPassword]);
     }
+
+
+
 
 }

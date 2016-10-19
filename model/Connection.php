@@ -2,6 +2,10 @@
 
 require_once('../config.php');
 
+/**
+** TODO: Refactor database connection to avoid static methods and inject a dependency instead of singleton.
+**/
+
 class Db {
     private static $instance = null;
 
@@ -10,7 +14,6 @@ class Db {
     private function __clone() {}
 
     public static function getInstance() {
-
 
         if (!isset(self::$instance)) {
             self::$instance = new mysqli(config::$SERVERNAME, config::$USERNAME, config::$PASSWORD, config::$DBNAME);

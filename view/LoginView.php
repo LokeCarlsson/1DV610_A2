@@ -1,6 +1,6 @@
 <?php
 
-require_once('controller/Login.php');
+require_once('controller/LoginController.php');
 
 class LoginView {
 	private static $login = 'LoginView::Login';
@@ -13,76 +13,45 @@ class LoginView {
 	private static $messageId = 'LoginView::Message';
 
 	private static $triedName = '';
-	private static $regTriedName = '';
 
 
-	private $loginController;
+	private $userView;
 
-	public function __construct(Login $login) {
-		$this->loginController = $login;
+	public function __construct(UserView $uV) {
+		$this->userView = $uV;
 	}
 
 	public function response() {
-		$regMessage = "";
+		$message = "";
 
-		$message = $this->loginController->checkCookies();
-
-		if (isset($_POST[self::$register])) {
-			self::$regTriedName = strip_tags($_POST[self::$regName]);
-			$regMessage = $this->loginController->registerCheck($_POST[self::$regName], $_POST[self::$regPassword], $_POST[self::$regPasswordRepeat]);
-		}
-
-		if (isset($_POST[self::$login])) {
-			self::$triedName = strip_tags($_POST[self::$name]);
-			if ($this->loginController->tryLogin($_POST[self::$name], $_POST[self::$password], isset($_POST[self::$keep]))) {
-				if (!isset($_SESSION['isLoggedIn'])) {
-					$message = "Welcome";
-				} else {
-					$message = "";
-				}
-				$_SESSION['isLoggedIn'] = true;
-	      		$_SESSION['user'] = $_POST[self::$name];
-
-			}
-			 else {
-				$message = $this->loginController->loginCheck($_POST[self::$name], $_POST[self::$password]);
-			}
-		}
-
-		if (isset($_POST[self::$logout])) {
-			$message = $this->logout();
-		}
-
-		if (isset($_SESSION['isLoggedIn'])) {
+		if ($this->userView->isLoggedIn()) {
 			return $this->generateLogoutButtonHTML($message);
 		} else {
-			if (isset($_GET['register'])) {
-				return $this->generateRegisterFormHTML($regMessage);
-			} else {
-				return $this->generateLoginFormHTML($message);
-			}
+			return $this->generateLoginFormHTML($message);
 		}
-	}
-
-	private function logout() {
-		unset($_SESSION['isLoggedIn']);
-		setcookie("user", false, time() - 1);
-		setcookie("password", false, time() - 1);
-		return "Bye bye!";
 	}
 
 	public function userWantToLogin() {
 		return isset($_POST[self::$login]);
 	}
 
-	public function userWantsToLogout() {
+	public function userWantToLogout() {
 		return isset($_POST[self::$logout]);
 	}
 
-	public function userWantsToRegister() {
-		return isset($_POST[self::$register]);
+	public function getUsername() {
+		if (strlen($_POST[self::$name]) <= 0) {
+			throw new usernameIsMissingException();
+		}
+		return $_POST[self::$name];
 	}
 
+	public function getPassword() {
+		if (strlen($_POST[self::$password]) <= 0) {
+			throw new passwordIsMissingException();
+		}
+		return $_POST[self::$password];
+	}
 
 	private function generateLogoutButtonHTML($message) {
 		return '
@@ -93,7 +62,7 @@ class LoginView {
 		';
 	}
 
-	private function generateLoginFormHTML() {
+	private function generateLoginFormHTML($message) {
 		return ' <form method="post" >
 				<fieldset>
 					<legend>Login - enter Username and password</legend>
@@ -113,4 +82,5 @@ class LoginView {
 			</form>
 		';
 	}
+
 }

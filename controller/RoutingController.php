@@ -1,54 +1,56 @@
 <?php
 
-require_once('../model/User.php');
-require_once('../model/Database.php');
-require_once('../model/Connection.php');
-require_once('../view/DateTimeView.php');
-require_once('../view/LoginView.php');
-require_once('../view/LayoutView.php');
-require_once('../controller/Login.php');
-require_once('../controller/LoginController.php');
-require_once('../controller/RegisterController.php');
+require_once('model/UserModel.php');
+require_once('model/Database.php');
+require_once('model/Connection.php');
+require_once('model/LoginModel.php');
+require_once('view/DateTimeView.php');
+require_once('view/LoginView.php');
+require_once('view/RegisterView.php');
+require_once('view/LayoutView.php');
+require_once('view/userView.php');
+require_once('controller/LoginController.php');
+require_once('controller/RegisterController.php');
 
 class Routing {
     private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';
     private static $register = 'RegisterView::Register';
 
+    private $dbConnection;
+    private $database;
+    private $loginController;
+    private $registerController;
+    private $loginView;
+    private $registerView;
+    private $layoutView;
+    private $dateTimeView;
+    private $loginModel;
+    private $userView;
+
+    public function __construct() {
+         $this->dbConnection = db::getInstance();
+         $this->database = new Database();
+         $this->loginModel = new LoginModel($this->database);
+         $this->userView = new UserView($this->database);
+         $this->loginView = new LoginView($this->userView);
+         $this->loginController = new LoginController($this->database, $this->loginModel, $this->loginView, $this->userView);
+         $this->registerController = new RegisterController($this->database, $this->loginModel, $this->loginView);
+         $this->registerView = new RegisterView();
+         $this->dateTimeView = new DateTimeView();
+         $this->layoutView = new LayoutView($this->loginView, $this->registerView, $this->dateTimeView, $this->userView);
+    }
+
     public function init() {
-        $db = db::getInstance();
-        $database = new Database();
-        $login = new Login($database);
-        $reg = new Register($database);
-        $v = new LoginView($login);
-        $lv = new LayoutView();
-        $dtv = new DateTimeView();
+        if ($this->loginView->userWantToLogin())
+        $this->loginController->login();
 
-        $response = $v->response();
-        $loginStatus = $login->status();
+        if ($this->loginView->userWantToLogout())
+        $this->userView->setUserLoggedOut();
 
-        $lv->render($loginStatus, $v, $dtv, $response);
+        if ($this->registerView->userWantToRegister())
+        $this->registerController->register();
 
-        if ($LoginView->userWantsToLogin) {
-
-        }
-
+        $this->layoutView->renderLoginView();
     }
 }
-
-
-
-
-// if (!isset($_SESSION['last_agent'])) {
-//
-//     $_SESSION['last_agent'] = $_SERVER['HTTP_USER_AGENT'];
-//
-// }
-//
-// if ($_SESSION['last_agent'] !== $_SERVER['HTTP_USER_AGENT']) {
-//
-//     unset($_SESSION['isLoggedIn']);
-//
-//     setcookie("PHPSESSID", $_COOKIE['PHPSESSID'], time() - 3600);
-//
-// }

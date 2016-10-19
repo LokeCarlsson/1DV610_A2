@@ -2,22 +2,36 @@
 
 class LayoutView {
 
-    public function renderLoginView($isLoggedIn, LoginView $lV, DateTimeView $dtv) {
-        echo $this->renderTop() .
-        '<a href="?">Back to login</a>' .
-        $this->renderIsLoggedIn($isLoggedIn) .
-        '<div class="container">' .
-        $lV->response() .
-        $this->renderBottom();
+    private $isLoggedin;
+    private $loginView;
+    private $registerView;
+    private $dateTimeView;
+    private $userView;
+
+    public function __construct(LoginView $lV, RegisterView $rV, DateTimeView $dtv, UserView $uV) {
+        $this->isLoggedIn = $uV->isLoggedIn();
+        $this->loginView = $lV;
+        $this->registerView = $rV;
+        $this->dateTimeView = $dtv;
+        $userView = $uV;
     }
 
-    public function renderRegisterView(RegisterView $rV, DateTimeView $dtv, $response) {
-        echo $this->renderTop() .
-        '<a href="?register">Register a new user</a>' .
-        $this->renderIsLoggedIn($isLoggedIn) .
+    public function renderLoginView() {
+        echo $this->renderTopHTML() .
+        '<a href="?">Back to login</a>' .
+        $this->renderIsLoggedIn() .
         '<div class="container">' .
-        $rV->response() .
-        $this->renderBottom();
+        $this->loginView->response() .
+        $this->renderBottomHTML();
+    }
+
+    public function renderRegisterView() {
+        echo $this->renderTopHTML() .
+        '<a href="?register">Register a new user</a>' .
+        $this->renderIsLoggedIn() .
+        '<div class="container">' .
+        $this->registerView->response() .
+        $this->renderBottomHTML();
     }
 
     private function renderTopHTML() {
@@ -32,14 +46,14 @@ class LayoutView {
     }
 
     private function renderBottomHTML() {
-        return $dtv->show() .
+        return $this->dateTimeView->show() .
                 '</div>
             </body>
         </html>';
     }
 
-    private function renderIsLoggedIn($isLoggedIn) {
-        if ($isLoggedIn) {
+    private function renderIsLoggedIn() {
+        if ($this->isLoggedIn) {
             return '<h2>Logged in</h2>';
         }
         else {

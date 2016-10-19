@@ -1,13 +1,35 @@
 <?php
 
-class Register {
+class RegisterView {
     private static $register = 'RegisterView::Register';
 	private static $regMessageId = 'RegisterView::Message';
 	private static $regName = 'RegisterView::UserName';
 	private static $regPassword = 'RegisterView::Password';
 	private static $regPasswordRepeat = 'RegisterView::PasswordRepeat';
 
+    private static $regTriedName = '';
+
+
+    public function userWantToRegister() {
+		return isset($_POST[self::$register]);
+	}
+
+    public function getPassword(){
+		if (strlen($_POST[self::$regPassword]) <= 0) {
+			throw new passwordIsMissingException();
+		}
+		return $_POST[self::$regPassword];
+	}
+
+    public function getPasswordRepeat(){
+		if (strlen($_POST[self::$regPasswordRepeat]) <= 0) {
+			throw new passwordIsMissingException();
+		}
+		return $_POST[self::$regPasswordRepeat];
+	}
+
     public function response() {
+        $message = "";
         return '<h2>Register new user</h2>
         <form action="?register" method="post" enctype="multipart/form-data">
             <fieldset>

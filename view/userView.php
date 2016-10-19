@@ -14,7 +14,7 @@ class UserView {
     }
 
     public function setUserLoggedIn($name) {
-        $_SESSION[self::$isLoggedInSession] = true;
+        $_SESSION[self::$sessionIsLoggedIn] = true;
         $_SESSION[self::$sessionUser] = $name;
     }
 
