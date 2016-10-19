@@ -8,14 +8,17 @@ class UserView {
     private static $cookiePasswordName = 'password';
 
     private $database;
+    private $userView;
 
-    public function __construct($db) {
+    public function __construct($db, $uV) {
         $this->database = $db;
+        $this->userView = $uV;
     }
 
     public function setUserLoggedIn($name) {
         $_SESSION[self::$sessionIsLoggedIn] = true;
         $_SESSION[self::$sessionUser] = $name;
+        $this->userView->setMessage('Welcome');
     }
 
     public function setUserLoggedOut() {
@@ -33,11 +36,11 @@ class UserView {
         return ($name == self::$staticName && $password == self::$staticPassword);
     }
 
-    public function isLoggedIn() : bool {
+    public function isLoggedIn() {
         return isset($_SESSION[self::$sessionIsLoggedIn]);
     }
 
-    public function keepLoggedIn() : bool {
+    public function keepLoggedIn() {
         return isset($_COOKIE[self::$cookiePassword]);
     }
 }

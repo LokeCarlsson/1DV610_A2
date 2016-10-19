@@ -14,20 +14,19 @@ class LoginView {
 
 	private static $triedName = '';
 
-
 	private $userView;
+	private $messageModel;
 
-	public function __construct(UserView $uV) {
+	public function __construct(UserView $uV, MessageModel $mM) {
 		$this->userView = $uV;
+		$this->messageModel = $mM;
 	}
 
 	public function response() {
-		$message = "";
-
 		if ($this->userView->isLoggedIn()) {
-			return $this->generateLogoutButtonHTML($message);
+			return $this->generateLogoutButtonHTML($this->messageModel->getMessage());
 		} else {
-			return $this->generateLoginFormHTML($message);
+			return $this->generateLoginFormHTML($this->messageModel->getMessage());
 		}
 	}
 

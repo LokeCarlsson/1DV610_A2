@@ -1,9 +1,9 @@
 <?php
 
-require_once('model/UserModel.php');
 require_once('model/Database.php');
-require_once('model/Connection.php');
 require_once('model/LoginModel.php');
+require_once('model/RegisterModel.php');
+require_once('model/MessageModel.php');
 require_once('view/DateTimeView.php');
 require_once('view/LoginView.php');
 require_once('view/RegisterView.php');
@@ -17,7 +17,6 @@ class RoutingController {
 	private static $logout = 'LoginView::Logout';
     private static $register = 'RegisterView::Register';
 
-    private $dbConnection;
     private $database;
     private $loginController;
     private $registerController;
@@ -26,17 +25,20 @@ class RoutingController {
     private $layoutView;
     private $dateTimeView;
     private $loginModel;
+    private $registerModel;
     private $userView;
+    private $messageModel;
 
     public function __construct() {
-         $this->dbConnection = db::getInstance();
          $this->database = new Database();
+         $this->messageModel = new MessageModel();
          $this->loginModel = new LoginModel($this->database);
-         $this->userView = new UserView($this->database);
-         $this->loginView = new LoginView($this->userView);
+         $this->registerModel = new RegisterModel($this->database);
+         $this->userView = new UserView($this->database, $this->messageModel);
+         $this->loginView = new LoginView($this->userView, $this->messageModel);
          $this->loginController = new LoginController($this->database, $this->loginModel, $this->loginView, $this->userView);
-         $this->registerController = new RegisterController($this->database, $this->loginModel, $this->loginView);
-         $this->registerView = new RegisterView();
+         $this->registerController = new RegisterController($this->database, $this->loginModel, $this->loginView, $this->registerModel, $this->messageModel);
+         $this->registerView = new RegisterView($this->messageModel);
          $this->dateTimeView = new DateTimeView();
          $this->layoutView = new LayoutView($this->loginView, $this->registerView, $this->dateTimeView, $this->userView);
     }
@@ -49,8 +51,12 @@ class RoutingController {
         $this->userView->setUserLoggedOut();
 
         if ($this->registerView->userWantToRegister())
-        $this->registerController->register();
+        $this->registerController->addNewUser();
 
-        $this->layoutView->renderLoginView($this->userView);
+        if ($this->registerView->displayRegisterForm()) {
+            $this->layoutView->renderRegisterView($this->userView);
+        } else {
+            $this->layoutView->renderLoginView($this->userView);
+        }
     }
 }

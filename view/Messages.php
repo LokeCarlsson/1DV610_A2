@@ -15,7 +15,7 @@ class Messages {
     }
 
     public function wrongCredentials() {
-        return 'Wrong name or password':
+        return 'Wrong name or password';
     }
 
     public function logout() {

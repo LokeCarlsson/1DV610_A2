@@ -17,7 +17,7 @@ class LayoutView {
 
     public function renderLoginView(UserView $userView) {
         echo $this->renderTopHTML() .
-        '<a href="?">Back to login</a>' .
+        '<a href="?register">Register a new user</a>' .
         $this->renderIsLoggedIn($userView) .
         '<div class="container">' .
         $this->loginView->response() .
@@ -26,7 +26,7 @@ class LayoutView {
 
     public function renderRegisterView(UserView $userView) {
         echo $this->renderTopHTML() .
-        '<a href="?register">Register a new user</a>' .
+        '<a href="?">Back to login</a>' .
         $this->renderIsLoggedIn($userView) .
         '<div class="container">' .
         $this->registerView->response() .

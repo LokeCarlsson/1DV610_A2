@@ -1,5 +1,7 @@
 <?php
 
+require_once('model/Connection.php');
+
 class Database {
 
     /**

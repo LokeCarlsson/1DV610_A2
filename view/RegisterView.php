@@ -6,22 +6,39 @@ class RegisterView {
 	private static $regName = 'RegisterView::UserName';
 	private static $regPassword = 'RegisterView::Password';
 	private static $regPasswordRepeat = 'RegisterView::PasswordRepeat';
+    private static $registerGetName = 'register';
 
     private static $regTriedName = '';
+
+    public function __construct(MessageModel $mM) {
+		$this->messageModel = $mM;
+	}
 
 
     public function userWantToRegister() {
 		return isset($_POST[self::$register]);
 	}
 
-    public function getPassword(){
+    public function displayRegisterForm() {
+        return isset($_GET[self::$registerGetName]);
+    }
+
+    public function getUsername() {
+        if (strlen($_POST[self::$regName]) <= 0) {
+			throw new usernameIsMissingException();
+		}
+        self::$regTriedName = strip_tags($_POST[self::$regName]);
+		return $_POST[self::$regName];
+    }
+
+    public function getPassword() {
 		if (strlen($_POST[self::$regPassword]) <= 0) {
 			throw new passwordIsMissingException();
 		}
 		return $_POST[self::$regPassword];
 	}
 
-    public function getPasswordRepeat(){
+    public function getPasswordRepeat() {
 		if (strlen($_POST[self::$regPasswordRepeat]) <= 0) {
 			throw new passwordIsMissingException();
 		}
@@ -29,7 +46,7 @@ class RegisterView {
 	}
 
     public function response() {
-        $message = "";
+        $message = $this->messageModel->getMessage();
         return '<h2>Register new user</h2>
         <form action="?register" method="post" enctype="multipart/form-data">
             <fieldset>
