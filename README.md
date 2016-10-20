@@ -1,2 +1,13 @@
-# Login_1DV608
-Interface repository for 1DV608 assignment 2 and 4
+# Requirements and Code Quality
+A simple authentication module
+
+## Requirements
+• PHP 7
+• MySQL
+
+
+## Setup
+Create a settings.php file in the directory outside the public html.
+
+
+
