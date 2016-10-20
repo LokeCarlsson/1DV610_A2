@@ -2,8 +2,8 @@
 A simple authentication module
 
 ## Requirements
-• PHP 7
-• MySQL
+* PHP 7
+* MySQL
 
 
 ## Setup
