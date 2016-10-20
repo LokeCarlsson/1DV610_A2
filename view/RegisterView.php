@@ -14,7 +14,6 @@ class RegisterView {
 		$this->messageModel = $mM;
 	}
 
-
     public function userWantToRegister() {
 		return isset($_POST[self::$register]);
 	}

@@ -1,7 +1,5 @@
 <?php
 
-require_once('controller/LoginController.php');
-
 class LoginView {
 	private static $login = 'LoginView::Login';
 	private static $logout = 'LoginView::Logout';

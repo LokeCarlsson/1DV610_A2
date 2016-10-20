@@ -1,16 +1,5 @@
 <?php
 
-require_once('exceptions/passwordHasTooFewCharsException.php');
-require_once('exceptions/passwordIsMissingException.php');
-require_once('exceptions/passwordsDoNotMatchException.php');
-require_once('exceptions/userAlreadyExistsException.php');
-require_once('exceptions/usernameContainsInvalidCharsException.php');
-require_once('exceptions/usernameHasTooFewCharsException.php');
-require_once('exceptions/usernameIsMissingException.php');
-require_once('exceptions/wrongUsernameOrPasswordException.php');
-require_once('model/Messages.php');
-require_once('model/MessageModel.php');
-
 class LoginController {
 
     private static $staticName = 'Admin';

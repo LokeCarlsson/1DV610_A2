@@ -1,8 +1,5 @@
 <?php
 
-require_once('model/Messages.php');
-require_once('model/MessageModel.php');
-
 class UserView {
     private static $cookiePassword = 'GLmEpTMp¤8KNfodgSSIa0!r9KtPd97)61S&776%Bje22B';
     private static $sessionIsLoggedIn = 'isLoggedIn';
