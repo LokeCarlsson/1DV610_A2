@@ -51,6 +51,6 @@ class LoginController {
             $this->messageModel->setMessage($this->messages->missingUsername());
         } catch (passwordIsMissingException $e) {
             $this->messageModel->setMessage($this->messages->missingPassword());
-        } 
+        }
     }
 }

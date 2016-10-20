@@ -55,8 +55,8 @@ class Messages {
     }
 
     public function usernameAndPasswordMissing() {
-        return passwordHasTooFewChars() .
+        return $this->passwordHasTooFewChars() .
         '<br>' .
-        usernameHasTooFewChars();
+        $this->usernameHasTooFewChars();
     }
 }

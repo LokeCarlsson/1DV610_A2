@@ -24,24 +24,15 @@ class RegisterView {
     }
 
     public function getUsername() {
-        if (strlen($_POST[self::$regName]) <= 0) {
-			throw new usernameIsMissingException();
-		}
         self::$regTriedName = strip_tags($_POST[self::$regName]);
 		return $_POST[self::$regName];
     }
 
     public function getPassword() {
-		if (strlen($_POST[self::$regPassword]) <= 0) {
-			throw new passwordIsMissingException();
-		}
 		return $_POST[self::$regPassword];
 	}
 
     public function getPasswordRepeat() {
-		if (strlen($_POST[self::$regPasswordRepeat]) <= 0) {
-			throw new passwordIsMissingException();
-		}
 		return $_POST[self::$regPasswordRepeat];
 	}
 

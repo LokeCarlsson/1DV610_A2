@@ -1,5 +1,8 @@
 <?php
 
+require_once('view/Messages.php');
+require_once('model/MessageModel.php');
+
 class UserView {
     private static $cookiePassword = 'GLmEpTMp¤8KNfodgSSIa0!r9KtPd97)61S&776%Bje22B';
     private static $sessionIsLoggedIn = 'isLoggedIn';
@@ -9,22 +12,31 @@ class UserView {
 
     private $database;
     private $userView;
+    private $messages;
+    private $messageModel;
 
     public function __construct($db, $uV) {
         $this->database = $db;
         $this->userView = $uV;
+        $this->messageModel = new MessageModel();
+        $this->messages = new Messages();
     }
 
     public function setUserLoggedIn($name) {
-        $_SESSION[self::$sessionIsLoggedIn] = true;
-        $_SESSION[self::$sessionUser] = $name;
-        $this->userView->setMessage('Welcome');
+        if (!isset($_SESSION[self::$sessionIsLoggedIn])) {
+            $_SESSION[self::$sessionIsLoggedIn] = true;
+            $_SESSION[self::$sessionUser] = $name;
+            $this->userView->setMessage($this->messages->welcome());
+        }
     }
 
     public function setUserLoggedOut() {
-        unset($_SESSION[self::$sessionIsLoggedIn]);
-        setcookie(self::$cookieUserName, false, time() - 1);
-        setcookie(self::$cookiePasswordName, false, time() - 1);
+        if (isset($_SESSION[self::$sessionIsLoggedIn])) {
+            unset($_SESSION[self::$sessionIsLoggedIn]);
+            setcookie(self::$cookieUserName, false, time() - 1);
+            setcookie(self::$cookiePasswordName, false, time() - 1);
+            $this->userView->setMessage($this->messages->logout());
+        }
     }
 
     private function setCookies($name) {

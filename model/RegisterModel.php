@@ -18,6 +18,10 @@ class RegisterModel {
             throw new usernameContainsInvalidCharsException();
         }
 
+        if (strlen($username) <= 0 && strlen($password) <= 0) {
+            throw new usernameAndPasswordMissingException();
+        }
+
         if ($username == $userInDB[self::$dbUsername]) {
             throw new userAlreadyExistsException();
         }
@@ -26,11 +30,11 @@ class RegisterModel {
             throw new usernameHasTooFewCharsException();
         }
 
-        if (strlen($password) <= 6) {
+        if (strlen($password) < 6) {
             throw new passwordHasTooFewCharsException();
         }
 
-        if ($password !== $passwordRepeat) {
+        if ($password != $passwordRepeat) {
             throw new passwordsDoNotMatchException();
         }
 
