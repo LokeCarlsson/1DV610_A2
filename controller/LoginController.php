@@ -8,7 +8,7 @@ require_once('exceptions/usernameContainsInvalidCharsException.php');
 require_once('exceptions/usernameHasTooFewCharsException.php');
 require_once('exceptions/usernameIsMissingException.php');
 require_once('exceptions/wrongUsernameOrPasswordException.php');
-require_once('view/Messages.php');
+require_once('model/Messages.php');
 require_once('model/MessageModel.php');
 
 class LoginController {

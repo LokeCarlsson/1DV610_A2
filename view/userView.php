@@ -1,6 +1,6 @@
 <?php
 
-require_once('view/Messages.php');
+require_once('model/Messages.php');
 require_once('model/MessageModel.php');
 
 class UserView {
