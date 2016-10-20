@@ -2,7 +2,9 @@
 
 require_once('../../settings.php');
 
-
+/**
+** TODO: Refactor database connection to avoid static methods and inject a dependency instead of singleton.
+**/
 
 class Db {
      private static $instance = null;

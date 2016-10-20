@@ -1,7 +1,5 @@
 <?php
 
-
-
 class LoginModel {
 
     private static $dbUsername = 'username';
