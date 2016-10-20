@@ -1,2 +1,3 @@
-# Login_1DV608
-Interface repository for 1DV608 assignment 2 and 4
+# Login_1DV610
+
+### This is the master branch for 1DV610 and is used for Assignment 2, for Assignment 4 see branch "Refactor"
