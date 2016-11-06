@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Loke Carlsson</title>
+    <description>Presentation av Loke Carlsson, studerande webbprogrammerare vid Linneuniversitetet, Kalmar.
+</description>
+    <link>http://yourdomain.com/</link>
+    <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 06 Nov 2016 10:45:19 +0000</pubDate>
+    <lastBuildDate>Sun, 06 Nov 2016 10:45:19 +0000</lastBuildDate>
+    <generator>Jekyll v3.3.0</generator>
+    
+      <item>
+        <title>Mina svar</title>
+        <description>&lt;h3 id=&quot;what-do-you-think-of-pre-compiling-your-css&quot;&gt;What do you think of pre-compiling your CSS?&lt;/h3&gt;
+&lt;p&gt;I like pre-compiling CSS such as SASS because it provides some strong tools to use. For example I really like variables and color transformation. Overall in my opionion, SASS will outweigh regular CSS but both of them have their special places where they shine more then the other.&lt;/p&gt;
+
+&lt;h4 id=&quot;compare-to-regular-css&quot;&gt;Compare to regular CSS&lt;/h4&gt;
+&lt;p&gt;As a developer of a website you can sit and write all the CSS code in how many different pages as you want and when your ready, compile it into one big CSS file that the website will use. This means that you only get one HTTP request from the server but the developer have the advantage of using multiple files.&lt;/p&gt;
+
+&lt;h4 id=&quot;which-techniques-did-you-use&quot;&gt;Which techniques did you use?&lt;/h4&gt;
+&lt;p&gt;Some examples of techniques I used are variables, color transformation and nesting. I also have operators, partials and imports in my site from the template.&lt;/p&gt;
+
+&lt;h4 id=&quot;pros-and-cons&quot;&gt;Pros and cons?&lt;/h4&gt;
+&lt;p&gt;The positive things that pre-compiled CSS gives are great and powerful tools that help the developer write the code faster and in a nicer way. The code that is produced will be esier to maintain. I think software such as SASS is becomes very strong when the project is on the larger scale, but it sure has it’s advantages on smaller projects as well.&lt;/p&gt;
+
+&lt;p&gt;An example of the negative of pre-compiled CSS is that it adds another layer of complexity to the process. Because you need to compile it before you get the code you can’t normally live edit a site that uses pre-compiled CSS.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-do-you-think-of-static-site-generators&quot;&gt;What do you think of static site generators?&lt;/h3&gt;
+&lt;p&gt;I think that static site generators are great because you dont need to involve databases and can for example get blog posts on your static site. It’s very fast compared to non-static sites. This makes it much more secure as well, and you dont need to worry about patching the security and plugins all the time.&lt;/p&gt;
+
+&lt;h4 id=&quot;what-type-of-projects-are-they-suitable-for&quot;&gt;What type of projects are they suitable for?&lt;/h4&gt;
+&lt;p&gt;Blogging, photo galleries and portfolios which you might have normally needed some kind of server to provide post och pictures for example can instead be used as a static site.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-robotstxt-and-how-have-you-configure-it-for-your-site&quot;&gt;What is robots.txt and how have you configure it for your site?&lt;/h3&gt;
+&lt;p&gt;It’s a text file which is placed in the root of the website folder so that web crawlers can search the web. One example is that Google use this to index the web content for its search engine. I have configured my robots.txt to allow all crawlers.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-humanstxt-and-how-have-you-configure-it-for-your-site&quot;&gt;What is humans.txt and how have you configure it for your site?&lt;/h3&gt;
+&lt;p&gt;It’s a text file that is placed beside the robots.txt file and works so that people can check information for example about the team behind the website and/or special thanks to contributers and also some information about the sites technical aspects.&lt;/p&gt;
+
+&lt;h3 id=&quot;how-did-you-implements-comments-to-blog-posts&quot;&gt;How did you implements comments to blog posts&lt;/h3&gt;
+&lt;p&gt;I used the tool Disqus to add comments to my site which was suggested. It was very simple yet very strong commenting software that worked great and was easy to implament to the site, all i had to do was to add this following code to my site:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;document&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createElement&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'script'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;src&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'//lokecarlsson.disqus.com/embed.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;setAttribute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'data-timestamp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;head&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;appendChild&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})();&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;what-is-open-graph-and-how-do-you-make-use-of-it&quot;&gt;What is Open Graph and how do you make use of it?&lt;/h3&gt;
+&lt;p&gt;Open Graph enables I used open graph’s tags for title, url, type and image so that the sharing will be much better on facebook. I thought that those meta tags where the most important to have on the site.&lt;/p&gt;
+
+&lt;p&gt;Go back to &lt;a href=&quot;/&quot;&gt;Main page&lt;/a&gt; if you like to!&lt;/p&gt;
+
+</description>
+        <pubDate>Fri, 13 Nov 2015 13:35:22 +0000</pubDate>
+        <link>http://yourdomain.com/jekyll/update/2015/11/13/Svar.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/11/13/Svar.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Loke's test!</title>
+        <description>&lt;p&gt;This is a &lt;code class=&quot;highlighter-rouge&quot;&gt;Testpost&lt;/code&gt;.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//This is some next level JavaScript&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;five&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ten&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;five&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;ten&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Go back to &lt;a href=&quot;/&quot;&gt;Main page&lt;/a&gt; if you like to!&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 08 Nov 2015 13:35:22 +0000</pubDate>
+        <link>http://yourdomain.com/jekyll/update/2015/11/08/Test-post-by-Loke.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/11/08/Test-post-by-Loke.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+      <item>
+        <title>Welcome to Jekyll!</title>
+        <description>&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve --watch&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+
+&lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
+
+&lt;p&gt;Jekyll also offers powerful support for code snippets:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hi, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Check out the &lt;a href=&quot;http://jekyllrb.com&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://github.com/jekyll/jekyll-help&quot;&gt;Jekyll’s dedicated Help repository&lt;/a&gt;.&lt;/p&gt;
+
+</description>
+        <pubDate>Tue, 03 Nov 2015 13:35:22 +0000</pubDate>
+        <link>http://yourdomain.com/jekyll/update/2015/11/03/welcome-to-jekyll.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/jekyll/update/2015/11/03/welcome-to-jekyll.html</guid>
+        
+        
+        <category>jekyll</category>
+        
+        <category>update</category>
+        
+      </item>
+    
+  </channel>
+</rss>
