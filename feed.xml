@@ -6,9 +6,34 @@
 </description>
     <link>http://yourdomain.com/</link>
     <atom:link href="http://yourdomain.com/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 14 Nov 2016 11:44:55 +0000</pubDate>
-    <lastBuildDate>Mon, 14 Nov 2016 11:44:55 +0000</lastBuildDate>
+    <pubDate>Mon, 14 Nov 2016 17:03:20 +0000</pubDate>
+    <lastBuildDate>Mon, 14 Nov 2016 17:03:20 +0000</lastBuildDate>
     <generator>Jekyll v3.3.0</generator>
+    
+      <item>
+        <title>Axel is king</title>
+        <description>&lt;p&gt;Okej då, han är inte speciellt king.. :D&lt;/p&gt;
+</description>
+        <pubDate>Mon, 14 Nov 2016 12:44:15 +0000</pubDate>
+        <link>http://yourdomain.com/2016/11/14/axel-is-king.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2016/11/14/axel-is-king.html</guid>
+        
+        
+      </item>
+    
+      <item>
+        <title>Testing with Oscar</title>
+        <description>&lt;p&gt;Helluuuuu :)&lt;/p&gt;
+
+&lt;iframe width=&quot;100%&quot; height=&quot;auto&quot; src=&quot;https://www.youtube.com/embed/dQw4w9WgXcQ&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;p&gt;&lt;img src=&quot;/forestryio/images/cVWZByT.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+</description>
+        <pubDate>Mon, 14 Nov 2016 12:40:30 +0000</pubDate>
+        <link>http://yourdomain.com/2016/11/14/testing-with-oscar.html</link>
+        <guid isPermaLink="true">http://yourdomain.com/2016/11/14/testing-with-oscar.html</guid>
+        
+        
+      </item>
     
       <item>
         <title>Testing CMS</title>
